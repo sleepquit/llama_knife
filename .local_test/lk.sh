@@ -3,7 +3,7 @@ if [ -z "$(which fzf)" ]; then
     echo "Please install fzf!"
     echo ""
 else
-    model_dir="$HOME/Downloads/ggml_models/v3/" #Changeme
+    model_dir="/home/u98/Downloads/Git/llama.cpp/models/v3/"
     if [ ! -d "$model_dir" ]; then
         echo "Path does not exist: $model_dir"
         echo "Update this script with a real path."
