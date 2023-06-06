@@ -5,6 +5,7 @@ import sys
 import json
 import pathlib
 from llama_cpp import Llama
+import pdb
 
 default_token_file = ".token_store.json"
 default_session_file = ".session.tmp"
@@ -16,7 +17,8 @@ def str_to_tokens(strarg):
     return string_tokens
 
 def tokens_to_str(tokarg):
-    return llm.detokenize(tokarg).decode("utf-8")
+    #return llm.detokenize(tokarg).decode("utf-8")
+    return llm.detokenize(tokarg).decode("utf-8", "ignore")
 
 def tokens_to_file(tokarg, output_file=default_token_file):
     tok_object_string = json.dumps(tokarg)
@@ -112,7 +114,16 @@ if __name__ == "__main__":
                 break
             session_tokens.append(next_token)
 
-            new_text += tokens_to_str([next_token])
+
+            #next_text = "%NULL_NEXT_TEXT"
+            #try:
+            #    next_text = tokens_to_str([next_token])
+            #except UnicodeDecodeError:
+            #    print("Unicode decode error. Try analyzing next_token")
+            #    pdb.set_trace()
+
+            next_text = tokens_to_str([next_token])
+            new_text += next_text
             print(new_text, end="\r")
             if any([word for word in stop_words if word in new_text]):
                 break
